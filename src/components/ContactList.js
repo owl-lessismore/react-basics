@@ -1,20 +1,12 @@
 import React from 'react';
+import ContactCard from './ContactCard';
 
 const ContactList = (props) => {
-  console.log(props);
-
   return (
     <div>
       Contact List
       {props.contacts.map((contact) => {
-        return (
-          <div id={contact.id}>
-            <div>
-              <h2>{contact.name}</h2>
-              <p>{contact.email}</p>
-            </div>
-          </div>
-        );
+        return <ContactCard key={contact.id} contact={contact} />;
       })}
     </div>
   );
