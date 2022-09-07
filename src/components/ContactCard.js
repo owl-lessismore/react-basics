@@ -1,10 +1,12 @@
 import React from 'react';
 
 const ContactCard = (props) => {
+  // Destructuring
+  const { name, email } = props.contact;
   return (
     <div>
-      <h2>{props.contact.name}</h2>
-      <p>{props.contact.email}</p>
+      <h2>{name}</h2>
+      <p>{email}</p>
     </div>
   );
 };
