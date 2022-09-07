@@ -3,6 +3,7 @@ import './App.css';
 import Header from './Header';
 import AddContact from './AddContact';
 import ContactList from './ContactList';
+import { v4 as uuid } from 'uuid';
 
 function App() {
   const [contacts, setContacts] = useState([]);
@@ -10,11 +11,15 @@ function App() {
 
   const addContactHandler = (contact) => {
     // spread operator
-    setContacts([...contacts, contact]);
-    localStorage.setItem(
-      LOCAL_STORAGE_KEY,
-      JSON.stringify([...contacts, contact])
-    );
+    const newContactList = [...contacts, { id: uuid(), ...contact }];
+    setContacts(newContactList);
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newContactList));
+  };
+
+  const removeContactHandler = (id) => {
+    const newContactList = contacts.filter((contact) => contact.id !== id);
+    setContacts(newContactList);
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newContactList));
   };
 
   useEffect(() => {
@@ -31,7 +36,7 @@ function App() {
     <div className='App'>
       <Header />
       <AddContact addContactHandler={addContactHandler} />
-      <ContactList contacts={contacts} />
+      <ContactList contacts={contacts} getContactId={removeContactHandler} />
     </div>
   );
 }

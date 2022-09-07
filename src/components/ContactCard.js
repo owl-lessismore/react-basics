@@ -2,11 +2,12 @@ import React from 'react';
 
 const ContactCard = (props) => {
   // Destructuring
-  const { name, email } = props.contact;
+  const { id, name, email } = props.contact;
   return (
     <div>
       <h2>{name}</h2>
       <p>{email}</p>
+      <button onClick={() => props.clickHandler(id)}>Delete</button>
     </div>
   );
 };
