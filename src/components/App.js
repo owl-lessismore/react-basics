@@ -5,24 +5,18 @@ import AddContact from './AddContact';
 import ContactList from './ContactList';
 
 function App() {
-  const [contact, setContacts] = useState([]);
-  const contacts = [
-    {
-      id: '1',
-      name: 'Darwin',
-      email: 'darwin@gmail.com',
-    },
-    {
-      id: '2',
-      name: 'Serocefino',
-      email: 'serocefino@gmail.com',
-    },
-  ];
+  const [contacts, setContacts] = useState([]);
+
+  const addContactHandler = (contact) => {
+    console.log(contact);
+    // spread operator
+    setContacts([...contacts, contact]);
+  };
 
   return (
     <div className='App'>
       <Header />
-      <AddContact />
+      <AddContact addContactHandler={addContactHandler} />
       <ContactList contacts={contacts} />
     </div>
   );
