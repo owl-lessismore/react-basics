@@ -5,8 +5,8 @@ const ContactList = (props) => {
   return (
     <div>
       Contact List
-      {props.contacts.map((contact) => {
-        return <ContactCard key={contact.id} contact={contact} />;
+      {props.contacts.map((contact, index) => {
+        return <ContactCard key={index} contact={contact} />;
       })}
     </div>
   );
