@@ -5,10 +5,18 @@ const ContactList = (props) => {
   const deleteContactHandler = (id) => {
     props.getContactId(id);
   };
+
+  const contacts = [
+    {
+      id: '1',
+      name: 'Darwin',
+      email: 'darwin@gmail.com',
+    },
+  ];
   return (
     <div>
       Contact List
-      {props.contacts.map((contact) => {
+      {contacts.map((contact) => {
         return (
           <ContactCard
             key={contact.id}
