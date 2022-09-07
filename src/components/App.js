@@ -38,10 +38,19 @@ function App() {
       <Router>
         <Header />
         <Routes>
-          <Route path='/' element={<ContactList />} />
-          <Route path='/add' element={<AddContact />} />
-          {/* <AddContact addContactHandler={addContactHandler} /> */}
-          {/* <ContactList contacts={contacts} getContactId={removeContactHandler} /> */}
+          <Route
+            path='/'
+            element={
+              <ContactList
+                contacts={contacts}
+                getContactId={removeContactHandler}
+              />
+            }
+          />
+          <Route
+            path='/add'
+            element={<AddContact addContactHandler={addContactHandler} />}
+          />
         </Routes>
       </Router>
     </div>
