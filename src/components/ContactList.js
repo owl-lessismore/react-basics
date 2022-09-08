@@ -11,6 +11,7 @@ const ContactList = (props) => {
   const getSearchItem = () => {
     props.searchKeyword(inputElement.current.value);
   };
+
   return (
     <div>
       <h3>Contact List</h3>
@@ -26,15 +27,19 @@ const ContactList = (props) => {
           onChange={getSearchItem}
         />
       </div>
-      {props.contacts.map((contact) => {
-        return (
-          <ContactCard
-            key={contact.id}
-            contact={contact}
-            clickHandler={deleteContactHandler}
-          />
-        );
-      })}
+      {props.contacts.length > 0 ? (
+        props.contacts.map((contact) => {
+          return (
+            <ContactCard
+              key={contact.id}
+              contact={contact}
+              clickHandler={deleteContactHandler}
+            />
+          );
+        })
+      ) : (
+        <p>No Contacts Available</p>
+      )}
     </div>
   );
 };
