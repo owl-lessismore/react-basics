@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import ContactCard from './ContactCard';
 import { Link } from 'react-router-dom';
 
 const ContactList = (props) => {
+  const inputElement = useRef('');
   const deleteContactHandler = (id) => {
     props.getContactId(id);
+  };
+
+  const getSearchItem = () => {
+    props.searchKeyword(inputElement.current.value);
   };
   return (
     <div>
@@ -12,6 +17,15 @@ const ContactList = (props) => {
       <Link to='/add'>
         <button>New Contact</button>
       </Link>
+      <div>
+        <input
+          ref={inputElement}
+          type='text'
+          placeholder='Search Contacts'
+          value={props.searchItem}
+          onChange={getSearchItem}
+        />
+      </div>
       {props.contacts.map((contact) => {
         return (
           <ContactCard

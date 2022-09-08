@@ -11,6 +11,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 function App() {
   const [contacts, setContacts] = useState([]);
   const BASE_URL = 'http://localhost:3006/';
+  const [searchContact, setSearchContact] = useState('');
 
   const addContactHandler = async (contact) => {
     const request = {
@@ -68,6 +69,10 @@ function App() {
     getAllContacts();
   }, []);
 
+  const searchHandler = (searchItem) => {
+    setSearchContact(searchItem);
+  };
+
   return (
     <div className='App'>
       <Router>
@@ -79,6 +84,8 @@ function App() {
               <ContactList
                 contacts={contacts}
                 getContactId={removeContactHandler}
+                searchItem={searchContact}
+                searchKeyword={searchHandler}
               />
             }
           />
