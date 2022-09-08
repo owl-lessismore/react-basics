@@ -4,6 +4,7 @@ import Header from './Header';
 import AddContact from './AddContact';
 import ContactList from './ContactList';
 import ContactDetail from './ContactDetail';
+import EditContact from './EditContact';
 import { v4 as uuid } from 'uuid';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
@@ -39,6 +40,23 @@ function App() {
     setContacts(newContactList);
   };
 
+  const updateContactHandler = async (contact) => {
+    const response = await fetch(`${BASE_URL}contacts/${contact.id}`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'PUT',
+      body: JSON.stringify(contact),
+    });
+
+    const updateContact = await response.json();
+
+    const newContactList = contacts.map((contact) =>
+      contact.id === updateContact.id ? { ...updateContact } : contact
+    );
+    setContacts(newContactList);
+  };
+
   useEffect(() => {
     const getAllContacts = async () => {
       const response = await fetch(`${BASE_URL}contacts`);
@@ -67,6 +85,12 @@ function App() {
           <Route
             path='/add'
             element={<AddContact addContactHandler={addContactHandler} />}
+          />
+          <Route
+            path='/edit'
+            element={
+              <EditContact updateContactHandler={updateContactHandler} />
+            }
           />
           <Route path='/contact/:id' element={<ContactDetail />} />
         </Routes>
