@@ -9,12 +9,9 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
   const [contacts, setContacts] = useState([]);
-  // const LOCAL_STORAGE_KEY = 'contacts';
   const BASE_URL = 'http://localhost:3006/';
 
   const addContactHandler = async (contact) => {
-    // spread operator
-
     const request = {
       id: uuid(),
       ...contact,
@@ -23,7 +20,6 @@ function App() {
     const response = await fetch(`${BASE_URL}contacts`, {
       method: 'POST',
       headers: {
-        Accept: 'application/json',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(request),
@@ -34,8 +30,12 @@ function App() {
     setContacts([...contacts, newContacts]);
   };
 
-  const removeContactHandler = (id) => {
+  const removeContactHandler = async (id) => {
+    await fetch(`${BASE_URL}contacts/${id}`, {
+      method: 'DELETE',
+    });
     const newContactList = contacts.filter((contact) => contact.id !== id);
+
     setContacts(newContactList);
   };
 
