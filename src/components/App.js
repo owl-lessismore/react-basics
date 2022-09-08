@@ -10,6 +10,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 function App() {
   const [contacts, setContacts] = useState([]);
   const LOCAL_STORAGE_KEY = 'contacts';
+  const BASE_URL = 'http://localhost:3006/';
 
   const addContactHandler = (contact) => {
     // spread operator
@@ -25,13 +26,21 @@ function App() {
   };
 
   useEffect(() => {
-    const retrieveContacts = JSON.parse(
-      localStorage.getItem(LOCAL_STORAGE_KEY)
-    );
+    // const retrieveContacts = JSON.parse(
+    //   localStorage.getItem(LOCAL_STORAGE_KEY)
+    // );
 
-    if (retrieveContacts) {
-      setContacts(retrieveContacts);
-    }
+    // if (retrieveContacts) {
+    //   setContacts(retrieveContacts);
+    // }
+    const getAllContacts = async () => {
+      const response = await fetch(`${BASE_URL}contacts`);
+      const contacts = await response.json();
+      if (contacts) {
+        setContacts(contacts);
+      }
+    };
+    getAllContacts();
   }, []);
 
   return (
